@@ -17,7 +17,8 @@
 import physicalgraph.zigbee.zcl.DataType
  
 metadata {
-    definition (name: "Hue Motion Sensor", namespace: "OttawaCloudConsulting", author: "Bogdan Alexe", vid: "generic-motion", ocfDeviceType: "x.com.st.d.sensor.motion") {
+    definition (name: "Hue Motion Sensor", namespace: "OttawaCloudConsulting", author: "Bogdan Alexe", vid: "generic-motion", ocfDeviceType: "x.com.st.d.sensor.motion") 
+    {
 		capability "Motion Sensor"
 		capability "Configuration"
 		capability "Battery"
@@ -46,15 +47,15 @@ metadata {
 
 	tiles(scale: 2) {
 		multiAttributeTile(name: "motion", type: "generic", width: 6, height: 4) {
-       		tileAttribute("device.motion", key: "PRIMARY_CONTROL") {
+      tileAttribute("device.motion", key: "PRIMARY_CONTROL") {
 				attributeState "active", label: "motion", icon: "st.motion.motion.active", backgroundColor: "#00A0DC"
 				attributeState "inactive", label: "no motion", icon: "st.motion.motion.inactive", backgroundColor: "#cccccc"
 			}
 		}
         
-        valueTile("temperature", "device.temperature", width: 2, height: 2) {
+    valueTile("temperature", "device.temperature", width: 2, height: 2) {
 			state("temperature", label: '${currentValue}°', unit: 'dF',
-            	backgroundColors: [
+        backgroundColors: [
                     // Celsius
                     [value: 0, color: "#153591"],
                     [value: 7, color: "#1e9cbb"],
@@ -74,27 +75,27 @@ metadata {
                 ]
 			)
 		}
-        valueTile("illuminance", "device.illuminance", width: 2, height: 2) {
-			state("illuminance", label:'${currentValue}', unit:"lux",
-				backgroundColors:[
-					[value: 9, color: "#767676"],
-					[value: 315, color: "#ffa81e"],
-					[value: 1000, color: "#fbd41b"]
-				]
-			)
-		}
-        valueTile("battery", "device.battery", width: 2, height: 2, decoration: "flat") {
+    // valueTile("illuminance", "device.illuminance", width: 2, height: 2) {
+		// 	state("illuminance", label:'${currentValue}', unit:"lux",
+		// 		backgroundColors:[
+		// 			[value: 9, color: "#767676"],
+		// 			[value: 315, color: "#ffa81e"],
+		// 			[value: 1000, color: "#fbd41b"]
+		// 		]
+		// 	)
+		// }
+    valueTile("battery", "device.battery", width: 2, height: 2, decoration: "flat") {
 			state "battery", label: '${currentValue}% battery', unit: "%"
 		}
-    //     valueTile("illuminance", "device.illuminance", width: 2, height: 2, decoration: "flat") {
-		// 	state "illuminance", label:'${currentValue} lux', unit:"lux"
-		// }
+    valueTile("illuminance", "device.illuminance", width: 2, height: 2) {
+			state "illuminance", label:'${currentValue} lux', unit:"lux"
+		}
 		standardTile("refresh", "device.refresh", width: 2, height: 2, decoration: "flat") {
 			state "default", action: "refresh.refresh", icon: "st.secondary.refresh"
 		}
 
 		main("motion")
-        details(["motion","temperature","illuminance","battery","refresh"])
+      details(["motion","temperature","illuminance","battery","refresh"])
 	}
 }
 
