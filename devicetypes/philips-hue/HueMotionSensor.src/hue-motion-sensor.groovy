@@ -2,7 +2,6 @@
  *  Hue Motion Sensor
  *
  *  Copyright 2018 Bogdan Alexe
- *  Source: https://github.com/digitalgecko/mySmartThings/commit/2a1be7861d4a8c0e7c877e642cfc7fc367341473
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  *  in compliance with the License. You may obtain a copy of the License at:
@@ -22,10 +21,10 @@ metadata {
 		capability "Configuration"
 		capability "Battery"
 		capability "Temperature Measurement"
-    capability "Illuminance Measurement"
+        capability "Illuminance Measurement"
 		capability "Refresh"
 		capability "Sensor"
-    capability "Health Check"
+        capability "Health Check"
 
 		fingerprint profileId: "0104", inClusters: "0000,0001,0003,0400,0402,0406", outClusters: "0019", manufacturer: "Philips", model: "SML001", deviceJoinName: "Hue Motion Sensor"
 	}
@@ -74,21 +73,15 @@ metadata {
                 ]
 			)
 		}
-    //     valueTile("illuminance", "device.illuminance", width: 2, height: 2) {
-		// 	state("illuminance", label:'${currentValue}', unit:"lux",
-		// 		backgroundColors:[
-		// 			[value: 9, color: "#767676"],
-		// 			[value: 315, color: "#ffa81e"],
-		// 			[value: 1000, color: "#fbd41b"]
-		// 		]
-		// 	)
-		// }
+       
+        valueTile("illuminance", "device.illuminance", width: 2, height: 2, decoration: "flat") {
+			state "luminosity", label:'${currentValue} lux', unit:"lux"
+		}
+        
         valueTile("battery", "device.battery", width: 2, height: 2, decoration: "flat") {
 			state "battery", label: '${currentValue}% battery', unit: "%"
 		}
-        valueTile("illuminance", "device.illuminance", width: 2, height: 2, decoration: "flat") {
-			state "illuminance", label:'${currentValue} lux', unit:"lux"
-		}
+        
 		standardTile("refresh", "device.refresh", width: 2, height: 2, decoration: "flat") {
 			state "default", action: "refresh.refresh", icon: "st.secondary.refresh"
 		}
