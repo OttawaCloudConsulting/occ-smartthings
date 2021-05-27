@@ -74,21 +74,21 @@ metadata {
                 ]
 			)
 		}
-    //     valueTile("illuminance", "device.illuminance", width: 2, height: 2) {
-		// 	state("illuminance", label:'${currentValue}', unit:"lux",
-		// 		backgroundColors:[
-		// 			[value: 9, color: "#767676"],
-		// 			[value: 315, color: "#ffa81e"],
-		// 			[value: 1000, color: "#fbd41b"]
-		// 		]
-		// 	)
-		// }
+        valueTile("illuminance", "device.illuminance", width: 2, height: 2) {
+			state("illuminance", label:'${currentValue}', unit:"lux",
+				backgroundColors:[
+					[value: 9, color: "#767676"],
+					[value: 315, color: "#ffa81e"],
+					[value: 1000, color: "#fbd41b"]
+				]
+			)
+		}
         valueTile("battery", "device.battery", width: 2, height: 2, decoration: "flat") {
 			state "battery", label: '${currentValue}% battery', unit: "%"
 		}
-        valueTile("illuminance", "device.illuminance", width: 2, height: 2, decoration: "flat") {
-			state "illuminance", label:'${currentValue} lux', unit:"lux"
-		}
+    //     valueTile("illuminance", "device.illuminance", width: 2, height: 2, decoration: "flat") {
+		// 	state "illuminance", label:'${currentValue} lux', unit:"lux"
+		// }
 		standardTile("refresh", "device.refresh", width: 2, height: 2, decoration: "flat") {
 			state "default", action: "refresh.refresh", icon: "st.secondary.refresh"
 		}
