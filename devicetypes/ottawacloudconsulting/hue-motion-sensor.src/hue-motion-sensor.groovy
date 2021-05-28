@@ -17,16 +17,16 @@
 import physicalgraph.zigbee.zcl.DataType
  
 metadata {
-    definition (name: "Hue Motion Sensor", namespace: "OttawaCloudConsulting", author: "Bogdan Alexe", vid: "generic-motion", ocfDeviceType: "x.com.st.d.sensor.motion") 
+    definition (name: "Hue Motion Sensor", namespace: "OttawaCloudConsulting", author: "Bogdan Alexe", vid: "generic-motion-4", ocfDeviceType: "x.com.st.d.sensor.motion") 
     {
 		capability "Motion Sensor"
 		capability "Configuration"
 		capability "Battery"
 		capability "Temperature Measurement"
-    capability "Illuminance Measurement"
+    	capability "Illuminance Measurement"
 		capability "Refresh"
-		capability "Sensor"
-    capability "Health Check"
+		// capability "Sensor"
+    	capability "Health Check"
 
 		fingerprint profileId: "0104", inClusters: "0000,0001,0003,0400,0402,0406", outClusters: "0019", manufacturer: "Philips", model: "SML001", deviceJoinName: "Hue Motion Sensor"
 	}
@@ -88,7 +88,7 @@ metadata {
 			state "battery", label: '${currentValue}% battery', unit: "%"
 		}
     valueTile("illuminance", "device.illuminance", width: 2, height: 2) {
-			state "illuminance", label:'${currentValue} lux', unit:"lux"
+			state "illuminance", label:'${currentValue}', unit:"lux"
 		}
 		standardTile("refresh", "device.refresh", width: 2, height: 2, decoration: "flat") {
 			state "default", action: "refresh.refresh", icon: "st.secondary.refresh"
