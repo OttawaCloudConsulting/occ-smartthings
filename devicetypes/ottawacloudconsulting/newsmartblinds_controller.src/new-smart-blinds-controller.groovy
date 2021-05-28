@@ -104,7 +104,7 @@ def off() {
 }
 
 def close() {
-    url = ("http://" + controllerIP + ":8838/neo/v1/transmit?command=" + blindCode + "-dn&id=" + controllerID + "&hash=" + date())
+    def url = ("http://" + controllerIP + ":8838/neo/v1/transmit?command=" + blindCode + "-dn&id=" + controllerID + "&hash=" + date())
     if (logEnable) log.debug "Sending close GET request to ${url}"
     sendEvent(name: "windowShade", value: "closing", isStateChange: true)
 	get(url,"closed")
@@ -114,7 +114,7 @@ def close() {
 }
 
 def open() {
-    url = "http://" + controllerIP + ":8838/neo/v1/transmit?command=" + blindCode + "-up&id=" + controllerID + "&hash=" + date()
+    def url = "http://" + controllerIP + ":8838/neo/v1/transmit?command=" + blindCode + "-up&id=" + controllerID + "&hash=" + date()
     if (logEnable) log.debug "Sending open GET request to ${url}"
     sendEvent(name: "windowShade", value: "opening", isStateChange: true)
 	get(url,"open")
@@ -126,13 +126,13 @@ def open() {
 def stop() {
     // todo, it would be nice if we could start a timer when someone opens/closes so if they stop we have an idea of where the shade is
     // then we could reflect it by setting the level here... 
-    url = "http://" + controllerIP + ":8838/neo/v1/transmit?command=" + blindCode + "-sp&id=" + controllerID + "&hash=" + date()
+    def url = "http://" + controllerIP + ":8838/neo/v1/transmit?command=" + blindCode + "-sp&id=" + controllerID + "&hash=" + date()
     if (logEnable) log.debug "Sending stop GET request to ${url}"
 	get(url,"partially open")
 }
 
 def stopPosition() {
-    url = "http://" + controllerIP + ":8838/neo/v1/transmit?command=" + blindCode + "-sp&id=" + controllerID + "&hash=" + date()
+    def url = "http://" + controllerIP + ":8838/neo/v1/transmit?command=" + blindCode + "-sp&id=" + controllerID + "&hash=" + date()
     if (logEnable) log.debug "Sending stop GET request to ${url}"
 	get(url,"partially open")
     sendEvent(name: "level", value: "${state.newposition}", isStateChange: true)
@@ -143,9 +143,9 @@ def stopPosition() {
 
 def runAndStop() {
     if (state.direction == "up") {
-        url = "http://" + controllerIP + ":8838/neo/v1/transmit?command=" + blindCode + "-up&id=" + controllerID + "&hash=" + date()
+        def url = "http://" + controllerIP + ":8838/neo/v1/transmit?command=" + blindCode + "-up&id=" + controllerID + "&hash=" + date()
     } else {
-        url = "http://" + controllerIP + ":8838/neo/v1/transmit?command=" + blindCode + "-dn&id=" + controllerID + "&hash=" + date()
+        def url = "http://" + controllerIP + ":8838/neo/v1/transmit?command=" + blindCode + "-dn&id=" + controllerID + "&hash=" + date()
     }
     if (logEnable) log.debug "Adjusting ${state.direction} to ${state.newposition} for ${state.difference} request to ${url}"
     get(url,"partially open")   
@@ -153,7 +153,7 @@ def runAndStop() {
 }
 
 def favorite() {
-    url = "http://" + controllerIP + ":8838/neo/v1/transmit?command=" + blindCode + "-gp&id=" + controllerID + "&hash=" + date()
+    def url = "http://" + controllerIP + ":8838/neo/v1/transmit?command=" + blindCode + "-gp&id=" + controllerID + "&hash=" + date()
     if (logEnable) log.debug "Sending favorite GET request to ${url}"
     state.secs=timeToFav
     state.level=100-((timeToFav/timeToClose)*100)
@@ -211,9 +211,9 @@ def setPosition(position) { // timeToClose= closed/down, 0=open/up
 def startLevelChange(direction) {
 	// https://github.com/hubitat/HubitatPublic/blob/master/examples/drivers/genericComponentDimmer.groovy 
     if (direction == "up") {
-        url = "http://" + controllerIP + ":8838/neo/v1/transmit?command=" + blindCode + "-mu&id=" + controllerID + "&hash=" + date()
+        def url = "http://" + controllerIP + ":8838/neo/v1/transmit?command=" + blindCode + "-mu&id=" + controllerID + "&hash=" + date()
     } else {
-        url = "http://" + controllerIP + ":8838/neo/v1/transmit?command=" + blindCode + "-md&id=" + controllerID + "&hash=" + date()
+        def url = "http://" + controllerIP + ":8838/neo/v1/transmit?command=" + blindCode + "-md&id=" + controllerID + "&hash=" + date()
     }
     if (logEnable) log.debug "Sending startLevel Change ${direction} GET request to ${url}"
     get(url,"partially open")
