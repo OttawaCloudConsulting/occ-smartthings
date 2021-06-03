@@ -27,78 +27,16 @@ metadata {
 		capability "Refresh"
 		capability "Temperature Measurement"
 		capability "Health Check"
+    capability "Tamper Alert"
 		fingerprint inClusters: “0000,0001,0003,0402,0500,0020,0B05,FC02”, outClusters: “0019”, manufacturer: “lk”, model: “ZB-DoorSensor-D0003”
 	}
 
 	simulator {
-		status "open": "zone report :: type: 19 value: 0031"
-		status "closed": "zone report :: type: 19 value: 0030"
-
-		status "acceleration": "acceleration: 1"
-		status "no acceleration": "acceleration: 0"
-
-		for (int i = 10; i <= 50; i += 10) {
-			status "temp ${i}C": "contactState: 0, accelerationState: 0, temp: $i C, battery: 100"
-		}
-
-		// kinda hacky because it depends on how it is installed
-		status "x,y,z: 0,0,0": "x: 0, y: 0, z: 0"
-		status "x,y,z: 1000,0,0": "x: 1000, y: 0, z: 0"
-		status "x,y,z: 0,1000,0": "x: 0, y: 1000, z: 0"
-		status "x,y,z: 0,0,1000": "x: 0, y: 0, z: 1000"
 	}
 	preferences {
-		section {
-			image(name: 'educationalcontent', multiple: true, images: [
-					"http://cdn.device-gse.smartthings.com/Multi/Multi1.jpg",
-					"http://cdn.device-gse.smartthings.com/Multi/Multi2.jpg",
-					"http://cdn.device-gse.smartthings.com/Multi/Multi3.jpg",
-					"http://cdn.device-gse.smartthings.com/Multi/Multi4.jpg"
-			])
-		}
-		section {
-			input "tempOffset", "number", title: "Temperature Offset", description: "Adjust temperature by this many degrees", range: "*..*", displayDuringSetup: false
-		}
-		section {
-			input("garageSensor", "enum", title: "Do you want to use this sensor on a garage door?", description: "Tap to set", options: ["Yes", "No"], defaultValue: "No", required: false, displayDuringSetup: false)
-		}
 	}
 
 	tiles(scale: 2) {
-		multiAttributeTile(name:"contact", type: "generic", width: 6, height: 4) {
-			tileAttribute("device.contact", key: "PRIMARY_CONTROL") {
-				attributeState("open", label: 'Open', icon: "st.contact.contact.open", backgroundColor: "#e86d13")
-				attributeState("closed", label: 'Closed', icon: "st.contact.contact.closed", backgroundColor: "#00a0dc")
-			}
-		}
-		standardTile("acceleration", "device.acceleration", width: 2, height: 2) {
-			state("active", label: 'Active', icon: "st.motion.acceleration.active", backgroundColor: "#00a0dc")
-			state("inactive", label: 'Inactive', icon: "st.motion.acceleration.inactive", backgroundColor: "#cccccc")
-		}
-		valueTile("temperature", "device.temperature", width: 2, height: 2) {
-			state("temperature", label: '${currentValue}°',
-					backgroundColors: [
-							[value: 31, color: "#153591"],
-							[value: 44, color: "#1e9cbb"],
-							[value: 59, color: "#90d2a7"],
-							[value: 74, color: "#44b621"],
-							[value: 84, color: "#f1d801"],
-							[value: 95, color: "#d04e00"],
-							[value: 96, color: "#bc2323"]
-					]
-			)
-		}
-		valueTile("battery", "device.battery", decoration: "flat", inactiveLabel: false, width: 2, height: 2) {
-			state "battery", label: '${currentValue}% battery', unit: ""
-		}
-		standardTile("refresh", "device.refresh", inactiveLabel: false, decoration: "flat", width: 2, height: 2) {
-			state "default", action: "refresh.refresh", icon: "st.secondary.refresh"
-		}
-
-
-		main(["contact", "acceleration", "temperature"])
-		details(["contact", "acceleration", "temperature", "battery", "refresh"])
-	}
 }
 
 private List<Map> collectAttributes(Map descMap) {
