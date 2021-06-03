@@ -17,8 +17,7 @@ import physicalgraph.zigbee.clusters.iaszone.ZoneStatus
 import physicalgraph.zigbee.zcl.DataType
 
 metadata {
-	definition(name: "Linkind Door Sensor", namespace: "OttawaCloudConsulting", author: "Christian Turner", cstHandler: true) {
-
+	definition(name: "Linkind Door Sensor", namespace: "OttawaCoudConsulting", author: "Christian Turner", cstHandler: true) {
 		capability "Three Axis"
 		capability "Battery"
 		capability "Configuration"
@@ -28,7 +27,6 @@ metadata {
 		capability "Refresh"
 		capability "Temperature Measurement"
 		capability "Health Check"
-
 		fingerprint inClusters: “0000,0001,0003,0402,0500,0020,0B05,FC02”, outClusters: “0019”, manufacturer: “lk”, model: “ZB-DoorSensor-D0003”
 	}
 
